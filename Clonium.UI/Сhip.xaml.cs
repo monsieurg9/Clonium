@@ -25,6 +25,11 @@ namespace Clonium.UI
             InitializeComponent();
         }
 
+        public Сhip(Color color, int xc, int yc)
+        {
+            this.ChipBack.Background = new SolidColorBrush(color);
+        }
+
         private void ChipBack_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //to Core function

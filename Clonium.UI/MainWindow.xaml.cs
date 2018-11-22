@@ -24,5 +24,16 @@ namespace Clonium.UI
         {
             InitializeComponent();
         }
+
+        private void mnNewGame_Click(object sender, RoutedEventArgs e)
+        {
+            NewGameWindow newGameWindow = new NewGameWindow(this);
+            newGameWindow.Show();
+        }
+
+        public void StartGame()
+        {
+
+        }
     }
 }

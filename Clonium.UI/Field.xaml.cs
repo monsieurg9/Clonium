@@ -20,9 +20,23 @@ namespace Clonium.UI
     /// </summary>
     public partial class Field : UserControl
     {
+
+        int size;
+        public int FieldSize { get { return this.size; } }
+
         public Field()
         {
             InitializeComponent();
+        }
+
+        public Field(int fieldSize)
+        {
+            this.size = fieldSize;
+            for (int i = 0; i < fieldSize; i++)
+            {
+                this.Field1.ColumnDefinitions.Add(new ColumnDefinition());
+                this.Field1.RowDefinitions.Add(new RowDefinition());
+            }
         }
     }
 }

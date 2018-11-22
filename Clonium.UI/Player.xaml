@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:Clonium.UI"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="400">
-    <Grid>
-        <Ellipse HorizontalAlignment="Left" Height="120" Margin="134,67,0,0" Stroke="Black" VerticalAlignment="Top" Width="120"/>
-        <Ellipse HorizontalAlignment="Left" Height="200" Margin="94,134,0,0" Stroke="Black" VerticalAlignment="Top" Width="200"/>
+    <Grid x:Name="Back">
+        <Ellipse x:Name="Head" HorizontalAlignment="Left" Height="120" Margin="134,67,0,0" Stroke="Black" VerticalAlignment="Top" Width="120"/>
+        <Ellipse x:Name="Body" HorizontalAlignment="Left" Height="200" Margin="94,134,0,0" Stroke="Black" VerticalAlignment="Top" Width="200"/>
 
     </Grid>
 </UserControl>

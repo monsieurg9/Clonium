@@ -10,25 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Clonium.UI
 {
     /// <summary>
-    /// Логика взаимодействия для Player.xaml
+    /// Логика взаимодействия для NewGameWindow.xaml
     /// </summary>
-    public partial class Player : UserControl
+    public partial class NewGameWindow : Window
     {
-        public Player()
+        MainWindow main;
+        public NewGameWindow()
         {
             InitializeComponent();
         }
-
-        public Player(Color color)
+        public NewGameWindow(MainWindow mainWindow)
         {
-            this.Head.Fill = new SolidColorBrush(color);
-            this.Body.Fill = new SolidColorBrush(color);
+            main = mainWindow;
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            main.Activate();
+            main.StartGame();
         }
     }
 }
