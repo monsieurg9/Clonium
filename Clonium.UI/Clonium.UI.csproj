@@ -122,5 +122,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clonium.Core\Clonium.Core.csproj">
+      <Project>{c6eab676-c811-4d28-9dfd-58a3bb73e058}</Project>
+      <Name>Clonium.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

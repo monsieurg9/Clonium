@@ -26,6 +26,7 @@ namespace Clonium.UI
         }
         public NewGameWindow(MainWindow mainWindow)
         {
+            InitializeComponent();
             main = mainWindow;
         }
 

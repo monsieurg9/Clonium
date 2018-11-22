@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clonium.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace Clonium.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        Game game;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,6 +35,37 @@ namespace Clonium.UI
         }
 
         public void StartGame()
+        {
+            game = new Game();
+        }
+
+        private void mnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Subscribe()
+        {
+
+        }
+
+        private void Unsubscribe()
+        {
+
+        }
+
+        #region Event methods
+
+
+
+        #endregion
+
+        private void mnSaveGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mnLoadGame_Click(object sender, RoutedEventArgs e)
         {
 
         }
