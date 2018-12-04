@@ -34,5 +34,31 @@ namespace Clonium.UI
         {
             //to Core function
         }
+
+        private void Chip_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (CountPoints() == 0)
+                Point1.Fill = Brushes.Black;
+            if (CountPoints() == 1)
+                Point2.Fill = Brushes.Black;
+            if (CountPoints() == 2)
+                Point3.Fill = Brushes.Black;
+            //if (CountPoints() == 3)
+        }
+
+
+        private int CountPoints()
+        {
+            if (Point1.Fill == Brushes.Transparent && Point2.Fill == Brushes.Transparent && Point3.Fill == Brushes.Transparent)
+                return 0;
+            else if (Point1.Fill != Brushes.Transparent && Point2.Fill == Brushes.Transparent && Point3.Fill == Brushes.Transparent)
+                return 1;
+            else if (Point1.Fill != Brushes.Transparent && Point2.Fill != Brushes.Transparent && Point3.Fill == Brushes.Transparent)
+                return 2;
+            else if (Point1.Fill != Brushes.Transparent && Point2.Fill != Brushes.Transparent && Point3.Fill != Brushes.Transparent)
+                return 3;
+            else
+                return -1;
+        }
     }
 }
