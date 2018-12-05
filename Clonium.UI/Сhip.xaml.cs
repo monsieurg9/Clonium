@@ -18,16 +18,38 @@ namespace Clonium.UI
     /// <summary>
     /// Логика взаимодействия для Сhip.xaml
     /// </summary>
-    public partial class Сhip : UserControl
+    /// 
+
+    public delegate void FillChipHanlder(FilledEventArgs eventArgs);
+    public partial class UIСhip : UserControl
     {
-        public Сhip()
+        public UIСhip()
         {
             InitializeComponent();
         }
 
-        public Сhip(Color color, int xc, int yc)
+        public event FillChipHanlder FilledChip;
+
+        public UIСhip(Color color, int dotNumber)
         {
-            this.ChipBack.Background = new SolidColorBrush(color);
+            InitializeComponent();
+            this.btnChip.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            this.Point1.Fill = Brushes.Transparent;
+            this.Point2.Fill = Brushes.Transparent;
+            this.Point3.Fill = Brushes.Transparent;
+            if (dotNumber == 1)
+                this.Point1.Fill = Brushes.Black;
+            if (dotNumber == 2)
+            {
+                this.Point1.Fill = Brushes.Black;
+                this.Point2.Fill = Brushes.Black;
+            }
+            if (dotNumber == 3)
+            {
+                this.Point1.Fill = Brushes.Black;
+                this.Point2.Fill = Brushes.Black;
+                this.Point3.Fill = Brushes.Black;
+            }
         }
 
         private void ChipBack_MouseDown(object sender, MouseButtonEventArgs e)
@@ -37,17 +59,11 @@ namespace Clonium.UI
 
         private void Chip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (CountPoints() == 0)
-                Point1.Fill = Brushes.Black;
-            if (CountPoints() == 1)
-                Point2.Fill = Brushes.Black;
-            if (CountPoints() == 2)
-                Point3.Fill = Brushes.Black;
-            //if (CountPoints() == 3)
+            CheckPointsAndCallOpen();
         }
 
 
-        private int CountPoints()
+        public int CountPoints()
         {
             if (Point1.Fill == Brushes.Transparent && Point2.Fill == Brushes.Transparent && Point3.Fill == Brushes.Transparent)
                 return 0;
@@ -59,6 +75,23 @@ namespace Clonium.UI
                 return 3;
             else
                 return -1;
+        }
+
+        public void AddPoint()
+        {
+            CheckPointsAndCallOpen();
+        }
+
+        private void CheckPointsAndCallOpen()
+        {
+            if (CountPoints() == 0)
+                Point1.Fill = Brushes.Black;
+            else if (CountPoints() == 1)
+                Point2.Fill = Brushes.Black;
+            else if (CountPoints() == 2)
+                Point3.Fill = Brushes.Black;
+            else if (CountPoints() == 3)
+                FilledChip.Invoke(new FilledEventArgs() { uIСhip = this });
         }
     }
 }

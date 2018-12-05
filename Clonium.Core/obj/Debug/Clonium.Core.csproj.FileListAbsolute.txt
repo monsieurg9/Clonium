@@ -4,3 +4,9 @@ D:\local projects\Clonium\Clonium.Core\obj\Debug\Clonium.Core.csprojAssemblyRefe
 D:\local projects\Clonium\Clonium.Core\obj\Debug\Clonium.Core.csproj.CoreCompileInputs.cache
 D:\local projects\Clonium\Clonium.Core\obj\Debug\Clonium.Core.dll
 D:\local projects\Clonium\Clonium.Core\obj\Debug\Clonium.Core.pdb
+C:\Универ\3 курс\Репозитории\Clonium.Core\bin\Debug\Clonium.Core.dll
+C:\Универ\3 курс\Репозитории\Clonium.Core\bin\Debug\Clonium.Core.pdb
+C:\Универ\3 курс\Репозитории\Clonium.Core\obj\Debug\Clonium.Core.csprojAssemblyReference.cache
+C:\Универ\3 курс\Репозитории\Clonium.Core\obj\Debug\Clonium.Core.csproj.CoreCompileInputs.cache
+C:\Универ\3 курс\Репозитории\Clonium.Core\obj\Debug\Clonium.Core.dll
+C:\Универ\3 курс\Репозитории\Clonium.Core\obj\Debug\Clonium.Core.pdb

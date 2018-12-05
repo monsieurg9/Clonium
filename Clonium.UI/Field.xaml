@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:Clonium.UI"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="500">
-    <Grid x:Name="Field1">
-            
-    </Grid>
+    <Border BorderThickness="2" BorderBrush="Black">
+        <Grid x:Name="Field1">
+
+        </Grid>
+    </Border>
+    
 </UserControl>

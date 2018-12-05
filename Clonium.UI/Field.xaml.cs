@@ -31,6 +31,7 @@ namespace Clonium.UI
 
         public Field(int fieldSize)
         {
+            InitializeComponent();
             this.size = fieldSize;
             for (int i = 0; i < fieldSize; i++)
             {

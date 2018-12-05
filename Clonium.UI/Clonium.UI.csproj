@@ -58,6 +58,7 @@
     <Compile Include="Field.xaml.cs">
       <DependentUpon>Field.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FilledEventArgs.cs" />
     <Compile Include="NewGameWindow.xaml.cs">
       <DependentUpon>NewGameWindow.xaml</DependentUpon>
     </Compile>

@@ -18,17 +18,28 @@ namespace Clonium.UI
     /// <summary>
     /// Логика взаимодействия для Player.xaml
     /// </summary>
-    public partial class Player : UserControl
+    public partial class UIPlayer : UserControl
     {
-        public Player()
+        public UIPlayer()
         {
             InitializeComponent();
         }
 
-        public Player(Color color)
+        public UIPlayer(Color color, bool isActive)
         {
-            this.Head.Fill = new SolidColorBrush(color);
-            this.Body.Fill = new SolidColorBrush(color);
+            InitializeComponent();
+            Head.Fill = new SolidColorBrush(color);
+            Body.Fill = new SolidColorBrush(color);
+            ChangeTurn(isActive);
         }
+
+        public void ChangeTurn(bool isActive)
+        {
+            //if (isActive)
+            //    this.rectIsActive.Fill = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            //else
+            //    this.rectIsActive.Fill = null;
+        }
+
     }
 }
