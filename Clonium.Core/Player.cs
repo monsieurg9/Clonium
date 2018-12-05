@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Clonium.Core
 {
@@ -12,7 +13,7 @@ namespace Clonium.Core
         int chipNumber;
         bool turn;
         string name;
-        string color;
+        Color color;
 
         public int DotNumber
         {
@@ -38,13 +39,13 @@ namespace Clonium.Core
             set { name = value; }
         }
 
-        public string Color
+        public Color Color
         {
             get { return color; }
             set { color = value; }
         }
 
-        public void ChangeColor(string NewColor)
+        public void ChangeColor(Color NewColor)
         {
             color = NewColor;
         }

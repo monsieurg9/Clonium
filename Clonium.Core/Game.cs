@@ -6,11 +6,31 @@ using System.Threading.Tasks;
 
 namespace Clonium.Core
 {
+    public delegate void PlayerAddedHandler();
+
     public class Game
     {
         List<Player> Players = new List<Player>();
 
+        public event PlayerAddedHandler PlayersAdded;
+        int playerCount;
+
+
+
+        public Game()
+        {
+
+        }
+
+        public void AddPlayer()
+        {
+            Players.Add(new Player() { Color = System.Windows.Media.Color.FromRgb(255, 0, 0) });
+            playerCount++;
+            PlayersAdded.Invoke();
+        }
+
         public List<Player> Players1 { get => Players; set => Players = value; }
+        public int PlayerCount { get => playerCount; set => playerCount = value; }
 
         public void ChangeTurn()
         {

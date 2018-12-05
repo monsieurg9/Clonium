@@ -20,19 +20,42 @@ namespace Clonium.UI
     /// </summary>
     public partial class Сhip : UserControl
     {
+        MainWindow main;
         public Сhip()
         {
             InitializeComponent();
         }
 
-        public Сhip(Color color, int xc, int yc)
+        public Сhip(Color color, int dotNumber, MainWindow mainWindow)
         {
+            InitializeComponent();
+            main = mainWindow;
             this.ChipBack.Background = new SolidColorBrush(color);
+            if (dotNumber==1)
+            {
+                this.Point1.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            }
+            else if (dotNumber == 2)
+            {
+                this.Point1.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                this.Point2.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            }
+            else if (dotNumber == 3)
+            {
+                this.Point1.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                this.Point2.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                this.Point3.Fill = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            }
         }
 
         private void ChipBack_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //to Core function
+            main.OpenChip(this);
+        }
+
+        private void ChipControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            main.OpenChip(this);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Clonium.Core
 {
@@ -98,7 +99,7 @@ namespace Clonium.Core
 
         public bool IsGameOver()
         {
-            string color = chips[0].Color;
+            Color color = chips[0].Color;
             Chip founded = null;
             try
             {
