@@ -33,7 +33,7 @@ namespace Clonium.UI
         public UIСhip(Color color, int dotNumber)
         {
             InitializeComponent();
-            this.btnChip.Background = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+            this.btnChip.Background = new SolidColorBrush(color);
             this.Point1.Fill = Brushes.Transparent;
             this.Point2.Fill = Brushes.Transparent;
             this.Point3.Fill = Brushes.Transparent;
@@ -59,7 +59,10 @@ namespace Clonium.UI
 
         private void Chip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CheckPointsAndCallOpen();
+            if (CheckIsFullChip())
+            {
+
+            }
         }
 
 
@@ -77,21 +80,26 @@ namespace Clonium.UI
                 return -1;
         }
 
-        public void AddPoint()
-        {
-            CheckPointsAndCallOpen();
-        }
-
-        private void CheckPointsAndCallOpen()
+        private bool CheckIsFullChip()
         {
             if (CountPoints() == 0)
+            {
                 Point1.Fill = Brushes.Black;
+                return false;
+            }
             else if (CountPoints() == 1)
+            {
                 Point2.Fill = Brushes.Black;
+                return false;
+            }
             else if (CountPoints() == 2)
+            {
                 Point3.Fill = Brushes.Black;
+                return false;
+            }
             else if (CountPoints() == 3)
-                FilledChip.Invoke(new FilledEventArgs() { uIСhip = this });
+                return true;
+            return false;
         }
     }
 }

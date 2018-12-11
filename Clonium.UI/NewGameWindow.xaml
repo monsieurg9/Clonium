@@ -8,13 +8,10 @@
         Title="Новая игра" Height="450" Width="550" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Количество игроков" HorizontalAlignment="Left" Height="30" Margin="66,103,0,0" VerticalAlignment="Top" Width="127"/>
-        <ComboBox x:Name="cbxPlayerCount" HorizontalAlignment="Left" Height="30" Margin="248,103,0,0" VerticalAlignment="Top" Width="153" BorderBrush="White">
-            <ComboBox.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </ComboBox.Background>
+        <ComboBox x:Name="cbxPlayerCount" HorizontalAlignment="Left" Height="30" Margin="248,103,0,0" VerticalAlignment="Top" Width="153" BorderBrush="White" Background="White">
+            <ComboBoxItem Background="White" Content="2" IsSelected="True"/>
+            <ComboBoxItem Background="White" Content="3"/>
+            <ComboBoxItem Background="White" Content="4"/>
         </ComboBox>
         <Label Content="Время хода игрока" HorizontalAlignment="Left" Height="28" Margin="66,174,0,0" VerticalAlignment="Top" Width="127"/>
         <ComboBox x:Name="cbxTimerSetting" HorizontalAlignment="Left" Height="28" Margin="248,174,0,0" VerticalAlignment="Top" Width="153" BorderBrush="White">
@@ -24,6 +21,8 @@
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </ComboBox.Background>
+            <ComboBoxItem Background="White" Content="1 минута"/>
+            <ComboBoxItem Background="White" Content="2 минуты"/>
         </ComboBox>
         <Button x:Name="btnStart" Content="Начать игру" HorizontalAlignment="Left" Height="40" Margin="179,317,0,0" VerticalAlignment="Top" Width="143" Click="btnStart_Click"/>
 

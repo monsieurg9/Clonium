@@ -50,3 +50,5 @@ C:\Универ\3 курс\Репозитории\Clonium.UI\obj\Debug\Clonium.U
 C:\Универ\3 курс\Репозитории\Clonium.UI\obj\Debug\Clonium.UI.csproj.CopyComplete
 C:\Универ\3 курс\Репозитории\Clonium.UI\obj\Debug\Clonium.UI.exe
 C:\Универ\3 курс\Репозитории\Clonium.UI\obj\Debug\Clonium.UI.pdb
+D:\local projects\Clonium\Clonium.UI\obj\Debug\SettingsWindow.g.cs
+D:\local projects\Clonium\Clonium.UI\obj\Debug\SettingsWindow.baml

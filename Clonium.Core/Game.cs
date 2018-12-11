@@ -9,25 +9,28 @@ namespace Clonium.Core
     public delegate void PlayerAddedHandler();
     public class Game
     {
-        List<Player> Players = new List<Player>();
+        List<Player> players = new List<Player>();
 
-        public List<Player> Players1 { get => Players; set => Players = value; }
+        public List<Player> Players { get => players; set => players = value; }
+        public int TimeToTurn { get; set; }
+        public bool IsStarted { get; set; }
+        public bool IsSuspended { get; set; }
+        public bool IsFinished { get; set; }
 
 
 
         public event PlayerAddedHandler PlayersAdded;
+        public event ChangeActivePlayerHandler ActivePlayerChanged;
         int playerCount;
         public Game()
         {
         }
         public void AddPlayer()
         {
-            Players.Add(new Player() { Color = System.Windows.Media.Color.FromRgb(255, 0, 0) });
+            players.Add(new Player() { Color = System.Windows.Media.Color.FromRgb(255, 0, 0) });
             playerCount++;
             PlayersAdded.Invoke();
         }
-
-        public int PlayerCount { get => playerCount; set => playerCount = value; }
 
         public void ChangeTurn()
         {
@@ -42,6 +45,7 @@ namespace Clonium.Core
                 Players[indexActivePlayer].Turn = false;
                 Players[indexActivePlayer+1].Turn = true;
             }
+            ActivePlayerChanged.Invoke(indexActivePlayer);
         }
     }
 }

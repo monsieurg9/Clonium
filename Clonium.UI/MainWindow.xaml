@@ -19,7 +19,7 @@
                 <MenuItem x:Name="mnExit" Height="40" Header="Выход" Click="mnExit_Click"></MenuItem>
             </MenuItem>
             <MenuItem Height="40" Header="Опции">
-                <MenuItem x:Name="mnSettings" Height="40" Header="Настройки..."></MenuItem>
+                <MenuItem x:Name="mnSettings" Height="40" Header="Настройки..." Click="mnSettings_Click"></MenuItem>
                 <MenuItem x:Name="mnRules" Height="40" Header="Правила игры..."></MenuItem>
             </MenuItem>
         </Menu>

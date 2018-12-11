@@ -3,57 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Clonium.Core
 {
     public class Chip
     {
-        int dotNumber;
-        int x;
-        int y;
-        string color;
-
-        public Chip(int xc, int yc, int dotNumberc, string colorc)
+        public Chip(int xc, int yc, int dotNumberc, Color colorc)
         {
-            dotNumber = dotNumberc;
-            x = xc;
-            y = yc;
-            color = colorc;
+            DotNumber = dotNumberc;
+            X = xc;
+            Y = yc;
+            Color = colorc;
         }
 
-        public void IncDotNumber()
+        public int DotNumber { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public bool IsFull
         {
-            dotNumber += 1;
+            get { return DotNumber >= 3; }
         }
 
-        public int DotNumber
+        Color ChangeColor(Color newColor)
         {
-            get { return dotNumber; }
-            set { dotNumber = value; }
+            Color = newColor;
+            return Color;
         }
 
-        public int X
-        {
-            get { return x; } 
-            set { x = value; }
-        }
+        public Color Color { get; set; }
 
-        public int Y
+        public void OpenChip()
         {
-            get { return y; }
-            set { y = value; }
-        }
-
-        string ChangeColor(string newColor)
-        {
-            color = newColor;
-            return color;
-        }
-
-        public string Color
-        {
-            get { return color; }
-            set { color = value; }
+            
         }
     }
 }

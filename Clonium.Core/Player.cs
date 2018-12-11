@@ -15,28 +15,10 @@ namespace Clonium.Core
         string name;
         Color color;
 
-        public int DotNumber
-        {
-            get { return dotNumber; }
-            set { dotNumber = value; }
-        }
-
-        public int ChipNumber
-        {
-            get { return chipNumber; }
-            set { chipNumber = value; }
-        }
-
         public bool Turn
         {
             get { return turn; }
             set { turn = value; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
         }
 
         public Color Color
