@@ -9,10 +9,7 @@ namespace Clonium.Core
 {
     public class Player
     {
-        int dotNumber;
-        int chipNumber;
         bool turn;
-        string name;
         Color color;
 
         public bool Turn
@@ -31,21 +28,5 @@ namespace Clonium.Core
         {
             color = NewColor;
         }
-
-        //public int CalcChipsNumber(Field field)
-        //{
-        //    return field.Chips.Count(x => x.Color == color);
-        //}
-
-        //public int CalcDotNumber(Field field)
-        //{
-        //    int result = 0;
-        //    field.Chips.ForEach(x =>
-        //    {
-        //        if (x.Color == color)
-        //            result += x.DotNumber;
-        //    });
-        //    return result;
-        //}
     }
 }

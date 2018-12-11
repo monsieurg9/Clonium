@@ -21,7 +21,7 @@
                     <GradientStop Color="White" Offset="1"/>
                 </LinearGradientBrush>
             </ComboBox.Background>
-            <ComboBoxItem Background="White" Content="1 минута"/>
+            <ComboBoxItem Background="White" Content="1 минута" IsSelected="True"/>
             <ComboBoxItem Background="White" Content="2 минуты"/>
         </ComboBox>
         <Button x:Name="btnStart" Content="Начать игру" HorizontalAlignment="Left" Height="40" Margin="179,317,0,0" VerticalAlignment="Top" Width="143" Click="btnStart_Click"/>

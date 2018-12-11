@@ -23,6 +23,13 @@ namespace Clonium.Core
         public bool IsFull
         {
             get { return DotNumber >= 3; }
+            set { }
+        }
+
+        public bool ReadyToOpen
+        {
+            get { return DotNumber >= 4; }
+            set { }
         }
 
         Color ChangeColor(Color newColor)
@@ -32,10 +39,5 @@ namespace Clonium.Core
         }
 
         public Color Color { get; set; }
-
-        public void OpenChip()
-        {
-            
-        }
     }
 }

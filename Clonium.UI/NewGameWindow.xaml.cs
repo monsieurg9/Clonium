@@ -34,7 +34,8 @@ namespace Clonium.UI
         {
             this.Close();
             main.Activate();
-            main.StartGame(Convert.ToInt32(((ComboBoxItem)cbxPlayerCount.SelectedItem).Content));
+            int time = cbxTimerSetting.SelectedIndex == 0 ? 60 : 120;
+            main.StartGame(Convert.ToInt32(((ComboBoxItem)cbxPlayerCount.SelectedItem).Content), time);
         }
     }
 }

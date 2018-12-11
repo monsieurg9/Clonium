@@ -35,10 +35,10 @@ namespace Clonium.UI
 
         public void ChangeTurn(bool isActive)
         {
-            //if (isActive)
-            //    this.rectIsActive.Fill = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-            //else
-            //    this.rectIsActive.Fill = null;
+            if (isActive)
+                this.Active.Fill = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            else
+                this.Active.Fill = null;
         }
 
     }

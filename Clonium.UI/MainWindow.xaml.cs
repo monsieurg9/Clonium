@@ -21,22 +21,37 @@ namespace Clonium.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        Game game;
         Field field;
         List<UIСhip> сhips = new List<UIСhip>();
         List<UIPlayer> players = new List<UIPlayer>();
-
-        MiddlewareLayer middlewareLayer = new MiddlewareLayer();
+        int timeForTurn;
 
         public MainWindow()
         {
             InitializeComponent();
-            middlewareLayer.FieldRecalculated += RePaintField;
+            MiddlewareLayer.GetMiddleware().FieldRecalculated += RePaintField;
+            MiddlewareLayer.GetMiddleware().GameOver += MainWindow_GameOver;
+            MiddlewareLayer.GetMiddleware().ActivePlayerChanged += MainWindow_ActivePlayerChanged;
+            MiddlewareLayer.GetMiddleware().TimeChanged += MainWindow_TimeChanged;
         }
 
-        public MiddlewareLayer GetMiddlewareLayer()
+        private void MainWindow_TimeChanged(int time)
         {
-            return middlewareLayer;
+            TransformTimeTurn(time);
+        }
+
+        private void MainWindow_ActivePlayerChanged(int activePlayer)
+        {
+            players.ForEach(x => x.Active.Fill = null);
+            players[activePlayer].Active.Fill = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            MiddlewareLayer.GetMiddleware().ResetTimer(timeForTurn);
+            TransformTimeTurn(timeForTurn);
+        }
+
+        private void MainWindow_GameOver()
+        {
+            TimeLabel.Content = "congratulations!!!".ToUpper();
+            MessageBox.Show(string.Format("Player 'Player{0}' wins!)", MiddlewareLayer.GetMiddleware().GetPlayers().IndexOf(MiddlewareLayer.GetMiddleware().GetPlayers().First(x=>x.Turn)) + 1), "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void mnNewGame_Click(object sender, RoutedEventArgs e)
@@ -45,32 +60,76 @@ namespace Clonium.UI
             newGameWindow.Show();
         }
 
-        public void StartGame(int playersCount)
+        private void TransformTimeTurn(int time)
         {
-            middlewareLayer.SetPlayers(playersCount);
-            middlewareLayer.SetTimeTurn(60);
-            InitializeField();
-            middlewareLayer.CreateGame();
-            middlewareLayer.StartGame();
-
-            //game = new Game();
-            //game.PlayersAdded += Game_PlayersAdded;
-            //InitializeField();
-            //for (int i = 0; i < 2; i++)
-            //{
-            //    game.AddPlayer();
-            //    InitializeChip(game.Players.Last(), i == 0 ? 1 : 6, i == 0 ? 1 : 6, 0);
-            //}
+            if (time % 60 < 10)
+                TimeLabel.Content = string.Format("0{0}:0{1}", time / 60, time % 60);
+            else if (time % 60 >= 10)
+                TimeLabel.Content = string.Format("0{0}:{1}", time / 60, time % 60);
         }
 
+        public void StartGame(int playersCount, int time)
+        {
+            timeForTurn = time;
+            TransformTimeTurn(time);
+            MiddlewareLayer.GetMiddleware().SetPlayers(playersCount);
+            SetPlayerColors();
+            MiddlewareLayer.GetMiddleware().SetTimeTurn(time);
+            InitializeField();
+            for (int i = 0; i < MiddlewareLayer.GetMiddleware().GetPlayers().Count; i++)
+            {
+                InitializePlayer(MiddlewareLayer.GetMiddleware().GetPlayers()[i]);
+                switch (i)
+                {
+                    case 0:
+                        {
+                            InitializeChip(1, 1, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color);
+                            MiddlewareLayer.GetMiddleware().GetChips().Add(new Chip(1, 1, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color));
+                            break;
+                        }
+                    case 1:
+                        {
+                            InitializeChip(6, 6, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color);
+                            MiddlewareLayer.GetMiddleware().GetChips().Add(new Chip(6, 6, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color));
+                            break;
+                        }
+                    case 2:
+                        {
+                            InitializeChip(6, 1, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color);
+                            MiddlewareLayer.GetMiddleware().GetChips().Add(new Chip(6, 1, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color));
+                            break;
+                        }
+                    case 3:
+                        {
+                            InitializeChip(1, 6, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color);
+                            MiddlewareLayer.GetMiddleware().GetChips().Add(new Chip(1, 6, 0, MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color));
+                            break;
+                        }
+                }
+            }
+            MiddlewareLayer.GetMiddleware().CreateGame();
+            MiddlewareLayer.GetMiddleware().StartGame();
+        }
+
+        private void SetPlayerColors()
+        {
+            for (int i = 0; i < MiddlewareLayer.GetMiddleware().GetPlayers().Count; i++)
+            {
+                if (i == 0)
+                    MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color = Properties.Settings.Default.Player1;
+                if (i == 1)
+                    MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color = Properties.Settings.Default.Player2;
+                if (i == 2)
+                    MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color = Properties.Settings.Default.Player3;
+                if (i == 3)
+                    MiddlewareLayer.GetMiddleware().GetPlayers()[i].Color = Properties.Settings.Default.Player4;
+            }
+        }
         private void RePaintField()
         {
-            сhips.ForEach(x =>
-            {
-                field.Field1.Children.Clear();
-                сhips.Clear();
-            });
-            middlewareLayer.GetChips().ForEach(x =>
+            field.Field1.Children.Clear();
+            сhips.Clear();
+            MiddlewareLayer.GetMiddleware().GetChips().ForEach(x =>
             {
                 InitializeChip(x.X, x.Y, x.DotNumber, x.Color);
             });
@@ -121,133 +180,77 @@ namespace Clonium.UI
             }
         }
 
+        private void ResizePlayerIcons(UIPlayer player)
+        {
+            if (Major.ActualWidth < Major.ActualHeight)
+            {
+                player.Height = Major.ActualWidth / 2;
+                player.Width = Major.ActualWidth / 2;
+            }
+            else if (Major.ActualHeight < Major.ActualWidth)
+            {
+                player.Height = Major.ActualHeight / 2 - 80;
+                player.Width = Major.ActualHeight / 2 - 80;
+            }
+        }
+
 
         private void InitializeChip(int x, int y, int dotNumber, Color color)
         {
             сhips.Add(new UIСhip(color, dotNumber));
             field.Field1.Children.Add(сhips.Last());
             сhips.Last().FilledChip += MainWindow_FilledChip;
+            сhips.Last().SetPoints += MainWindow_SetPoints;
             field.Field1.Children[field.Field1.Children.Count - 1].SetValue(Grid.ColumnProperty, x);
             field.Field1.Children[field.Field1.Children.Count - 1].SetValue(Grid.RowProperty, y);
         }
 
-
-        //private void InitializeChip(Clonium.Core.Player player, int x, int y, int dotNumber)
-        //{
-        //    сhips.Add(new UIСhip(player.Color, dotNumber));
-        //    field.Field1.Children.Add(сhips.Last());
-        //    //сhips.Last().FilledChip += MainWindow_FilledChip;
-        //    field.Field1.Children[field.Field1.Children.Count - 1].SetValue(Grid.ColumnProperty, x);
-        //    field.Field1.Children[field.Field1.Children.Count - 1].SetValue(Grid.RowProperty, y);
-        //}
-
-        private void MainWindow_FilledChip(FilledEventArgs eventArgs)
+        private void MainWindow_FilledChip(int xc, int yc)
         {
-            middlewareLayer.
+            Chip foundedChip = MiddlewareLayer.GetMiddleware().GetChips().SingleOrDefault(x => x.X == xc && x.Y == yc);
+            foundedChip.DotNumber++;
+            if (foundedChip != null)
+                MiddlewareLayer.GetMiddleware().ClickOnChip(foundedChip.X, foundedChip.Y);
         }
 
-        //private void DestroyChip(UIСhip chip)
-        //{
-        //    field.Field1.Children.Remove(chip);
-        //    сhips.Remove(chip);
-
-        //}
-
-        //public void OpenChip(UIСhip chip)
-        //{
-        //    int chipX = Grid.GetColumn(chip);
-        //    int chipY = Grid.GetRow(chip);
-        //    UIСhip checkingChip = FindChip(chipX - 1, chipY);
-        //    if (checkingChip == null && chipX > 0)
-        //    {
-        //        InitializeChip(game.Players[0], chipX - 1, chipY, 0);
-        //    }
-        //    else if (checkingChip != null && chipX > 0)
-        //    {
-        //        checkingChip.AddPoint();
-        //    }
-
-        //    checkingChip = FindChip(chipX + 1, chipY);
-        //    if (checkingChip == null && chipX < 7)
-        //    {
-        //        InitializeChip(game.Players[0], chipX + 1, chipY, 0);
-        //    }
-        //    else if (checkingChip != null && chipX < 7)
-        //    {
-        //        checkingChip.AddPoint();
-        //    }
-
-        //    checkingChip = FindChip(chipX, chipY - 1);
-        //    if (checkingChip == null && chipY > 0)
-        //    {
-        //        InitializeChip(game.Players[0], chipX, chipY - 1, 0);
-        //    }
-        //    else if (checkingChip != null && chipY > 0)
-        //    {
-        //        checkingChip.AddPoint();
-        //    }
-
-        //    checkingChip = FindChip(chipX, chipY + 1);
-        //    if (checkingChip == null && chipY < 7)
-        //    {
-        //        InitializeChip(game.Players[0], chipX, chipY + 1, 0);
-        //    }
-        //    else if (checkingChip != null && chipY < 7)
-        //    {
-        //        checkingChip.AddPoint();
-        //    }
-        //    DestroyChip(chip);
-        //}
-        //private UIСhip FindChip(int xc, int yc)
-        //{
-        //    return сhips.SingleOrDefault(x => Grid.GetColumn(x) == xc && Grid.GetRow(x) == yc);
-        //}
+        private void MainWindow_SetPoints(int pointsCount, int xc, int yc)
+        {
+            MiddlewareLayer.GetMiddleware().GetChips().Single(x => x.X == xc && x.Y == yc).DotNumber = pointsCount;
+        }
 
         #endregion
-
-
-        //private void Game_PlayersAdded()
-        //{
-        //    InitializePlayer(game.Players.Last());
-        //}
 
 
         private void InitializePlayer(Core.Player player)
         {
             if (players.Count < 4)
             {
-                players.Add(new UIPlayer(player.Color, player.Turn));
+                UIPlayer playerControl = new UIPlayer(player.Color, player.Turn);
+                ResizePlayerIcons(playerControl);
+                players.Add(playerControl);
                 if (players.Count == 1)
                 {
-                    Major.Children.Add(players.Last());
+                    Major.Children.Add(playerControl);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.ColumnProperty, 0);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.RowProperty, 1);
-                    Major.Children[Major.Children.Count - 1].SetValue(WidthProperty, Major.ColumnDefinitions[0].ActualWidth);
-                    Major.Children[Major.Children.Count - 1].SetValue(HeightProperty, Major.RowDefinitions[1].ActualHeight);
                 }
                 else if (players.Count == 2)
                 {
-                    Major.Children.Add(players.Last());
+                    Major.Children.Add(playerControl);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.ColumnProperty, 2);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.RowProperty, 3);
-                    Major.Children[Major.Children.Count - 1].SetValue(WidthProperty, Major.ColumnDefinitions[2].ActualWidth);
-                    Major.Children[Major.Children.Count - 1].SetValue(HeightProperty, Major.RowDefinitions[3].ActualHeight);
                 }
                 else if (players.Count == 3)
                 {
-                    Major.Children.Add(players.Last());
+                    Major.Children.Add(playerControl);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.ColumnProperty, 2);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.RowProperty, 1);
-                    Major.Children[Major.Children.Count - 1].SetValue(WidthProperty, Major.ColumnDefinitions[2].ActualWidth);
-                    Major.Children[Major.Children.Count - 1].SetValue(HeightProperty, Major.RowDefinitions[1].ActualHeight);
                 }
                 else if (players.Count == 4)
                 {
-                    Major.Children.Add(players.Last());
+                    Major.Children.Add(playerControl);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.ColumnProperty, 0);
                     Major.Children[Major.Children.Count - 1].SetValue(Grid.RowProperty, 3);
-                    Major.Children[Major.Children.Count - 1].SetValue(WidthProperty, Major.ColumnDefinitions[0].ActualWidth);
-                    Major.Children[Major.Children.Count - 1].SetValue(HeightProperty, Major.RowDefinitions[3].ActualHeight);
                 }
             }
         }
@@ -265,6 +268,10 @@ namespace Clonium.UI
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ResizeField();
+            players.ForEach(x =>
+            {
+                ResizePlayerIcons(x);
+            });
         }
 
         private void mnSettings_Click(object sender, RoutedEventArgs e)

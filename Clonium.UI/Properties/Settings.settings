@@ -1,7 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Clonium.UI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Player1" Type="System.Windows.Media.Color" Scope="Application">
+      <Value Profile="(Default)">#FFFC0A0A</Value>
+    </Setting>
+    <Setting Name="Player2" Type="System.Windows.Media.Color" Scope="Application">
+      <Value Profile="(Default)">#FFFFF81C</Value>
+    </Setting>
+    <Setting Name="Player3" Type="System.Windows.Media.Color" Scope="Application">
+      <Value Profile="(Default)">#FF5AF706</Value>
+    </Setting>
+    <Setting Name="Player4" Type="System.Windows.Media.Color" Scope="Application">
+      <Value Profile="(Default)">#FF0B1FFA</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

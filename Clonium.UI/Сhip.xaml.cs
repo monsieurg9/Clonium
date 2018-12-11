@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clonium.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,8 @@ namespace Clonium.UI
     /// </summary>
     /// 
 
-    public delegate void FillChipHanlder(FilledEventArgs eventArgs);
+    public delegate void FillChipHanlder(int xc, int yc);
+    public delegate void SetPointsHandler(int pointsCount, int xc, int yc);
     public partial class UIСhip : UserControl
     {
         public UIСhip()
@@ -28,7 +30,10 @@ namespace Clonium.UI
             InitializeComponent();
         }
 
+        int clickCount = 0;
+
         public event FillChipHanlder FilledChip;
+        public event SetPointsHandler SetPoints;
 
         public UIСhip(Color color, int dotNumber)
         {
@@ -37,6 +42,7 @@ namespace Clonium.UI
             this.Point1.Fill = Brushes.Transparent;
             this.Point2.Fill = Brushes.Transparent;
             this.Point3.Fill = Brushes.Transparent;
+            clickCount = dotNumber;
             if (dotNumber == 1)
                 this.Point1.Fill = Brushes.Black;
             if (dotNumber == 2)
@@ -52,16 +58,20 @@ namespace Clonium.UI
             }
         }
 
-        private void ChipBack_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //to Core function
-        }
-
         private void Chip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (CheckIsFullChip())
+            if (MiddlewareLayer.GetMiddleware().FindPlayerByColor(((SolidColorBrush)this.btnChip.Background).Color))
             {
-
+                clickCount++;
+                if (CheckIsFullChip(clickCount))
+                {
+                    FilledChip.Invoke(Grid.GetColumn(this), Grid.GetRow(this));
+                }
+                else
+                {
+                    SetPoints.Invoke(clickCount, Grid.GetColumn(this), Grid.GetRow(this));
+                }
+                MiddlewareLayer.GetMiddleware().ChangeTurn();
             }
         }
 
@@ -80,7 +90,7 @@ namespace Clonium.UI
                 return -1;
         }
 
-        private bool CheckIsFullChip()
+        private bool CheckIsFullChip(int clickCount)
         {
             if (CountPoints() == 0)
             {
@@ -97,9 +107,10 @@ namespace Clonium.UI
                 Point3.Fill = Brushes.Black;
                 return false;
             }
-            else if (CountPoints() == 3)
+            else if (CountPoints() == 3 && clickCount == 3)
+                return false;
+            else
                 return true;
-            return false;
         }
     }
 }

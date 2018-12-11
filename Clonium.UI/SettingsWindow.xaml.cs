@@ -19,38 +19,103 @@ namespace Clonium.UI
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        Border border;
+        List<Color> colors = new List<Color>();
         public SettingsWindow()
         {
             InitializeComponent();
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFFC0A0A"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFFFF81C"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF5AF706"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF0B1FFA"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF9A00A0"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFFF6E97"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF11F9E4"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF44A870"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF000000"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFB9B9B9"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFEE9E0C"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFC892A0"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF803030"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FF04510D"));
+            colors.Add((Color)ColorConverter.ConvertFromString("#FFC5C70F"));
         }
 
         private void GetPlayerColor(string player)
         {
-            //to core
+            Color color;
+            if (player == "Player1")
+            {
+                color = Properties.Settings.Default.Player1;
+                FindRect(color);
+            }
+            if (player == "Player2")
+            {
+                color = Properties.Settings.Default.Player2;
+                FindRect(color);
+            }
+            if (player == "Player3")
+            {
+                color = Properties.Settings.Default.Player3;
+                FindRect(color);
+            }
+            if (player == "Player4")
+            {
+                color = Properties.Settings.Default.Player4;
+                FindRect(color);
+            }
         }
 
-        private void SendPlayerColor(Color color)
+        private void SendPlayerColor(Color color, int selectedIndex)
         {
-            //to core
+            switch (selectedIndex)
+            {
+                case 0:
+                    {
+                        Properties.Settings.Default["Player1"] = color;
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case 1:
+                    {
+                        Properties.Settings.Default["Player2"] = color;
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case 2:
+                    {
+                        Properties.Settings.Default["Player3"] = color;
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+                case 3:
+                    {
+                        Properties.Settings.Default["Player4"] = color;
+                        Properties.Settings.Default.Save();
+                        break;
+                    }
+            }
         }
 
+        private void FindRect(Color color)
+        {
+            int index = colors.IndexOf(color);
+            Rectangle rect = (Rectangle)FindName(string.Format("{0}{1}", "rect", index+1));
+            ClearBorders();
+            rect.Stroke = Brushes.Black;
+            rect.StrokeThickness = 2;
+        }
         private void rect1_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ClearBorders();
             Rectangle rect = (Rectangle)sender;
             rect.Stroke = Brushes.Black;
             rect.StrokeThickness = 2;
-            SendPlayerColor(((SolidColorBrush)rect.Fill).Color);
+            SendPlayerColor(((SolidColorBrush)rect.Fill).Color, cbxPlayers.SelectedIndex);
         }
 
         private void ClearBorders()
         {
-            //for (int i = 1; i <= 16; i++)
-            //{
-
-            //}
-
             rect1.Stroke = null;
             rect2.Stroke = null;
             rect3.Stroke = null;
