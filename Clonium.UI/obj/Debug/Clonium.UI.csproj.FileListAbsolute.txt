@@ -52,3 +52,5 @@ C:\Универ\3 курс\Репозитории\Clonium.UI\obj\Debug\Clonium.U
 C:\Универ\3 курс\Репозитории\Clonium.UI\obj\Debug\Clonium.UI.pdb
 D:\local projects\Clonium\Clonium.UI\obj\Debug\SettingsWindow.g.cs
 D:\local projects\Clonium\Clonium.UI\obj\Debug\SettingsWindow.baml
+D:\local projects\Clonium\Clonium.UI\obj\Debug\AboutWindow.g.cs
+D:\local projects\Clonium\Clonium.UI\obj\Debug\AboutWindow.baml

@@ -279,5 +279,11 @@ namespace Clonium.UI
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
         }
+
+        private void mnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.Show();
+        }
     }
 }

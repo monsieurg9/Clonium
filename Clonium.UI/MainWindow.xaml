@@ -14,13 +14,12 @@
         <Menu Grid.Row="0">
             <MenuItem Height="40" Header="Игра">
                 <MenuItem x:Name="mnNewGame" Height="40" Header="Новая игра" Click="mnNewGame_Click"></MenuItem>
-                <MenuItem x:Name="mnSaveGame" Height="40" Header="Сохранить игру..." Click="mnSaveGame_Click"></MenuItem>
-                <MenuItem x:Name="mnLoadGame" Height="40" Header="Загрузить игру..." Click="mnLoadGame_Click"></MenuItem>
                 <MenuItem x:Name="mnExit" Height="40" Header="Выход" Click="mnExit_Click"></MenuItem>
             </MenuItem>
             <MenuItem Height="40" Header="Опции">
                 <MenuItem x:Name="mnSettings" Height="40" Header="Настройки..." Click="mnSettings_Click"></MenuItem>
                 <MenuItem x:Name="mnRules" Height="40" Header="Правила игры..."></MenuItem>
+                <MenuItem x:Name="mnAbout" Height="40" Header="О программе..." Click="mnAbout_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" x:Name="Major">
