@@ -155,6 +155,7 @@ namespace Clonium.UI
 
         private void InitializeField()
         {
+
             field = new Field(8);
             ResizeField();
             Major.Children.Add(field);
