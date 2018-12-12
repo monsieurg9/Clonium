@@ -18,7 +18,7 @@
             </MenuItem>
             <MenuItem Height="40" Header="Опции">
                 <MenuItem x:Name="mnSettings" Height="40" Header="Настройки..." Click="mnSettings_Click"></MenuItem>
-                <MenuItem x:Name="mnRules" Height="40" Header="Правила игры..."></MenuItem>
+                <MenuItem x:Name="mnRules" Height="40" Header="Правила игры..." Click="mnRules_Click"></MenuItem>
                 <MenuItem x:Name="mnAbout" Height="40" Header="О программе..." Click="mnAbout_Click"></MenuItem>
             </MenuItem>
         </Menu>

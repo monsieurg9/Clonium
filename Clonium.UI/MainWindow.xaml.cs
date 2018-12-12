@@ -285,5 +285,11 @@ namespace Clonium.UI
             AboutWindow aboutWindow = new AboutWindow();
             aboutWindow.Show();
         }
+
+        private void mnRules_Click(object sender, RoutedEventArgs e)
+        {
+            RulesWindow rulesWindow = new RulesWindow();
+            rulesWindow.Show();
+        }
     }
 }

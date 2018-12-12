@@ -54,3 +54,5 @@ D:\local projects\Clonium\Clonium.UI\obj\Debug\SettingsWindow.g.cs
 D:\local projects\Clonium\Clonium.UI\obj\Debug\SettingsWindow.baml
 D:\local projects\Clonium\Clonium.UI\obj\Debug\AboutWindow.g.cs
 D:\local projects\Clonium\Clonium.UI\obj\Debug\AboutWindow.baml
+D:\local projects\Clonium\Clonium.UI\obj\Debug\RulesWindow.g.cs
+D:\local projects\Clonium\Clonium.UI\obj\Debug\RulesWindow.baml
